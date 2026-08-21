@@ -36,7 +36,7 @@ app.post('/produtos', (req, res) => {
     
 
     const novoProduto = req.body; // recebe o corpo da requisicao
-    novoProduto.id = produtos.length + 1;
+    novoProduto.id = produtos[produto.legth - 1].id + 1;
     produtos.push(novoProduto); // da o post
     res.status(201).json(produtos);
 
