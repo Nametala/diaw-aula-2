@@ -36,7 +36,7 @@ app.delete('/produtos/:id', (req, res) => {
     if (index != -1) {
         produtos.splice (index, 1) // apaga a partir do indice
     } else {
-        res.status(404).json({ erro: 'O id não foi encontrado'})
+        res.status(404).json({ erro: 'O id não foi encontrado'}) ////u7t7o78
 
     }
 
