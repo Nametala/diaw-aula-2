@@ -3,13 +3,13 @@ const app = express()
 app.use(express.json());
 
 
-const produtos =  [
-        { id: 1, descricao: "Arroz parboilizado 5Kg", preco: 25.00, marca: "Tio João" },
-        { id: 2, descricao: "Maionese 250gr", preco: 7.20, marca: "Helmans" },
-        { id: 3, descricao: "Iogurte Natural 200ml", preco: 2.50, marca: "Itambé" },
-        { id: 4, descricao: "Batata Maior Palha 300gr", preco: 15.20, marca: "Chipps" },
-        { id: 5, descricao: "Nescau 400gr", preco: 8.00, marca: "Nestlé" }
-    ]
+const produtos = [
+    { id: 1, descricao: "Arroz parboilizado 5Kg", preco: 25.00, marca: "Tio João", categoria: "Alimentos", estoque: 50 },
+    { id: 2, descricao: "Maionese 250gr", preco: 7.20, marca: "Helmans", categoria: "Alimentos", estoque: 30 },
+    { id: 3, descricao: "Iogurte Natural 200ml", preco: 2.50, marca: "Itambé", categoria: "Laticínios", estoque: 40 },
+    { id: 4, descricao: "Batata Maior Palha 300gr", preco: 15.20, marca: "Chipps", categoria: "Alimentos", estoque: 25 },
+    { id: 5, descricao: "Nescau 400gr", preco: 8.00, marca: "Nestlé", categoria: "Alimentos", estoque: 60 }
+]
 
 
 app.get('/produtos', (req, res) => {
