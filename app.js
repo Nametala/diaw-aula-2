@@ -1,5 +1,7 @@
 const express = require ('express');
 const app = express()
+app.use(express.json());
+
 
 const produtos =  [
         { id: 1, descricao: "Arroz parboilizado 5Kg", preco: 25.00, marca: "Tio João" },
@@ -29,6 +31,30 @@ app.delete('/produtos/:id', (req, res) => {
 
     res.json (produtos) 
 });
+
+app.post('/produtos', (req, res) => {
+    
+
+    const novoProduto = req.body; // recebe o corpo da requisicao
+    novoProduto.id = produtos.length + 1;
+    produtos.push(novoProduto); // da o post
+    res.status(201).json(produtos);
+
+    
+app.put('/produtos/:id', (req, res) => {
+    const id = parseInt(req.params.id); // recebe o id
+    console.log(`atualizar ${id}`);
+
+    const index = produtos.findIndex(produto => produto.id === id); // acha o index do produto que tem o id recebido
+    if (index !== -1) {
+        produtos[index] = { ...produtos[index], ...req.body }; // ...produtos[index] isso copia tudo que ta dentro desse produto e depois o ...req.body cola todas essas informações no elemento novo
+    } else {
+        res.status(404).json({ erro: 'O id não foi encontrado' });
+    }
+
+    res.json(produtos);
+});
+})
 
 app.listen(3000, (e) => {
     console.log('Servidor ouvindo em http://localhost:3000')
