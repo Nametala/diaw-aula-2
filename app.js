@@ -17,6 +17,17 @@ app.get('/produtos', (req, res) => {
     res.json (produtos) 
 });
 
+app.get('/produtos/:id', (req, res) => {
+    
+    const id = parseInt (req.params.id);
+    encontrado = produtos.find(produtos => produto.id === id ) ;
+    if (encontrado) {
+        res.json (encontrado) ;
+    } else {
+        res.status(404).json({ erro: 'O id não foi encontrado'})
+    }
+});
+
 app.delete('/produtos/:id', (req, res) => {
     const id = parseInt (req.params.id); // recebe o id 
     console.log(`excluir ${id}`) 
