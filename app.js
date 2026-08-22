@@ -20,9 +20,9 @@ app.get('/produtos', (req, res) => {
 app.get('/produtos/:id', (req, res) => {
     
     const id = parseInt (req.params.id);
-    idEncontrado = produtos.findIndex(produtos => produtos.id === id ) ;
-    if (idEncontrado >=0 ) {
-        res.json (produtos.id.idEncontrado) ;
+    const idEncontrado = produtos.findIndex(produtos => produtos.id === id ) ;
+    if (idEncontrado != -1 ) {
+        res.json (produtos[idEncontrado]) ;
     } else {
         res.status(404).json({ erro: 'O id não foi encontrado'})
     }
