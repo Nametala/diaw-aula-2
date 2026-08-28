@@ -1,6 +1,6 @@
 const express = require ('express');
 const app = express()
-app.use(express.json());
+app.use(express.json()); // verifica se é jsobn e pega o corpo da erquisição e joga pra ser processada no body
 
 
 const produtos = [
@@ -10,6 +10,8 @@ const produtos = [
     { id: 4, descricao: "Batata Maior Palha 300gr", preco: 15.20, marca: "Chipps", categoria: "Alimentos", estoque: 25 },
     { id: 5, descricao: "Nescau 400gr", preco: 8.00, marca: "Nestlé", categoria: "Alimentos", estoque: 60 }
 ]
+
+app.use('/site' , express.static('site'))
 
 
 app.get('/produtos', (req, res) => {
@@ -66,6 +68,8 @@ app.put('/produtos/:id', (req, res) => {
     res.json(produtos);
 });
 })
+
+
 
 app.listen(3000, (e) => {
     console.log('Servidor ouvindo em http://localhost:3000')
