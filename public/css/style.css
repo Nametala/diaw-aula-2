@@ -1,12 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: aquamarine;
+    padding: 20px;
+    background-color: bisque;
 }
 
-h1 {
-    font-size: 48px;
-    font-family: 'Times New Roman', Times, serif;
+section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
-p {
-    font-size: large;
+section input {
+    flex: 1;
 }

@@ -4,18 +4,16 @@ function carregarProdutos() {
     fetch('/produtos')
         .then(res => res.json())
         .then(data => {
-            containerProdutos.innerHTML = '';
+            containerProdutos.innerHTML = 'Produtos:<br>';
             data.forEach(element => {
-                containerProdutos.innerHTML += `<p>${element.descricao}</p>`;
+                containerProdutos.innerHTML += `<p>ID ${element.id}: ${element.descricao} - R$ ${element.preco} - ${element.categoria} - ${element.estoque} </p>`;
             });
         });
 }
 
 // GET - receber produtos
 const botaoCarregar = document.querySelector('#btn-carregar');
-
 botaoCarregar.addEventListener('click', carregarProdutos);
-
 
 // DELETE - deletar produtos
 const botaoDeletar = document.querySelector('#btn-deletar');
@@ -41,10 +39,8 @@ botaoConfirmar.addEventListener('click', () => {
     });
 });
 
-
 // POST - adicionar novo produto
 const botaoAdicionar = document.querySelector('#btn-adicionar');
-const inputId = document.querySelector('#input-id'); 
 const inputDescricao = document.querySelector('#input-desc');
 const inputPreco = document.querySelector('#input-preco');
 const inputCategoria = document.querySelector('#input-cat');
@@ -52,7 +48,6 @@ const inputEstoque = document.querySelector('#input-estoque');
 
 botaoAdicionar.addEventListener('click', () => {
     const novoProduto = {
-        id: inputId.value,
         descricao: inputDescricao.value,
         preco: Number(inputPreco.value),
         categoria: inputCategoria.value,
@@ -70,7 +65,6 @@ botaoAdicionar.addEventListener('click', () => {
     .then(() => carregarProdutos());
 });
 
-
 // PUT - alterar produto
 const botaoAlterar = document.querySelector('#btn-alterar');
 const inputAltId = document.querySelector('#input-alt-id'); 
@@ -85,7 +79,7 @@ botaoAlterar.addEventListener('click', () => {
     const produtoAtualizado = {
         descricao: inputAltDescricao.value,
         preco: Number(inputAltPreco.value),
-        categoria: inputAltCategoria.value,
+        categoria: inputAltCategoria.value, 
         estoque: Number(inputAltEstoque.value)
     };
 

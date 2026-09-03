@@ -1,7 +1,10 @@
 const express = require('express');
+const path = require('path');
 const app = express();
+
 app.use(express.json());
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const produtos = [
     { id: 1, descricao: "Arroz parboilizado 5Kg", preco: 25.00, marca: "Tio João", categoria: "Alimentos", estoque: 50 },
@@ -43,7 +46,6 @@ app.delete('/produtos/:id', (req, res) => {
 // CREATE
 app.post('/produtos', (req, res) => {
     const novoProduto = req.body;
-    // Calcula o novo ID baseado no valor do ultimo
     const ultimoId = produtos.length > 0 ? produtos[produtos.length - 1].id : 0;
     novoProduto.id = ultimoId + 1;
     
