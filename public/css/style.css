@@ -2,9 +2,50 @@
     box-sizing: border-box;
 }
 
+header {
+    background-color: rgb(111, 114, 116);
+    display: flex;
+    margin: 0;
+    size: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+}
+
+button {
+    display: flex;
+    border-radius: 5px;
+    size: 20px ;
+    align-items: center;
+}
+
 body {
     padding: 20px;
-    background-color: bisque;
+    background-color: aliceblue;
+    width: 100%;
+    margin: 0;
+}
+
+#btn-carregar {
+    background-color: greenyellow;
+}
+
+#btn-deletar {
+    background-color: red;
+}
+
+#btn-adicionar {
+    background-color: rgb(127, 231, 231);
+}
+
+#btn-alterar {
+    background-color: orange;
+}
+
+#container-produtos {
+    margin-top: 50px;
+    background-color:  rgb(192, 229, 237);
 }
 
 section {
