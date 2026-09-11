@@ -3,7 +3,8 @@
 }
 
 header {
-    background-color: rgb(111, 114, 116);
+    background-color: #2f3e4e;
+    color: #f4f7fa;
     display: flex;
     margin: 0;
     size: 100%;
@@ -22,30 +23,35 @@ button {
 
 body {
     padding: 20px;
-    background-color: aliceblue;
+    background-color: #eef2f6;
+    color: #2f3e4e;
     width: 100%;
     margin: 0;
 }
 
 #btn-carregar {
-    background-color: greenyellow;
+    background-color: #3fae6d;
+    color: #ffffff;
 }
 
 #btn-deletar {
-    background-color: red;
+    background-color: #e0574f;
+    color: #ffffff;
 }
 
 #btn-adicionar {
-    background-color: rgb(127, 231, 231);
+    background-color: #4a90d9;
+    color: #ffffff;
 }
 
 #btn-alterar {
-    background-color: orange;
+    background-color: #e0a13c;
+    color: #ffffff;
 }
 
 #container-produtos {
     margin-top: 50px;
-    background-color:  rgb(192, 229, 237);
+    background-color: #e2e8f0;
 }
 
 section {
@@ -57,4 +63,44 @@ section {
 
 section input {
     flex: 1;
+}
+
+#box-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 40px);
+}
+
+#box-login div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    background-color: #ffffff;
+    color: #2f3e4e;
+    width: 30%;
+    max-width: 100%;
+    padding: 40px;
+    border-radius: 8px;
+}
+
+#box-login input,
+#box-login button {
+    width: 100%;
+    max-width: 75%;
+    padding: 14px 16px;
+    font-size: 18px;
+}
+
+#box-login input {
+    background-color: #f1f5f9;
+    color: #2f3e4e;
+}
+
+#box-login button {
+    justify-content: center;
+    background-color: #2f9e8f;
+    color: #ffffff;
 }

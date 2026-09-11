@@ -1,54 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciamento de Produtos</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>MEU SITE</h1>
-    </header>
+    <section id="box-login">
 
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elitl Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam inventore voluptas doloribus labore magnam totam minus, voluptatem veniam laudantium qui quos repellendus iure ipsam repellat eaque quae quas eius quisquam. </p>
-
-    <!-- GET -->
-    <section>
-        <button id="btn-carregar">Carregar Produtos</button>
+        <div>
+            <h1>LOGIN</h1>
+            <input type="text" id="usuario" placeholder="Digite seu usuario" >
+            <input type="password" id="senha" placeholder="Digite sua senha" >
+            <button id="btn-logar">Logar</button>
+        </div>
     </section>
-
-    <!-- DELETE -->
-    <section>
-        <button id="btn-deletar">Deletar Produto</button>
-        <input type="number" id="input-idNovo" placeholder="Digite o ID do produto" style="display: none;">
-        <button id="confirmar" style="display: none;">Confirmar delete</button>
-    </section>
-
-    <!-- POST -->
-    <section>
-        <h3>Adicionar Novo Produto</h3>
-        <input type="text" id="input-desc" placeholder="Descrição">
-        <input type="number" id="input-preco" placeholder="Preço">
-        <input type="text" id="input-cat" placeholder="Categoria">
-        <input type="number" id="input-estoque" placeholder="Estoque">
-        <button id="btn-adicionar">Adicionar Produto</button>
-    </section>
-
-    <!-- PUT -->
-    <section>
-        <h3>Alterar Produto</h3>
-        <input type="number" id="input-alt-id" placeholder="ID do produto a alterar">
-        <input type="text" id="input-alt-desc" placeholder="Nova Descrição">
-        <input type="number" id="input-alt-preco" placeholder="Novo Preço">
-        <input type="text" id="input-alt-cat" placeholder="Nova Categoria">
-        <input type="number" id="input-alt-estoque" placeholder="Novo Estoque">
-        <button id="btn-alterar">Alterar Produto</button>
-    </section>
-
-    <!-- Mostrar -->
-    <div id="container-produtos">Produtos:<br></div>
-
-    <script src="js/app.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>

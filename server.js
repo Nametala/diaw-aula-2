@@ -1,10 +1,34 @@
+// instalei express-session - middleware que gerencia sessoes de usuarios
 const express = require('express');
+const session = require('express-session'); // chamando o session 
 const path = require('path');
+const { login, logout, autorizar } = require('./auth/autenticador'); // forcando a autorizacao
 const app = express();
 
 app.use(express.json());
-app.use(express.static('public'));
+
+// cria a sessao e o cookie
+app.use(session({
+    secret: 'ninguemVaiSaber', // secredo codificador
+    resave: false,
+    saveUninitialized: false,
+})); // isso aqui ja sai na base 64 , doido dms
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+// login
+app.post('/login', login);
+
+// buscando o home que agora esta protegido
+app.get('/home', autorizar, (req, res) => {
+    res.sendFile(path.join(__dirname, 'privado', 'home.html'));
+});
+
+
+// forca a autorizacao se tentar entrar direto na api
+app.use('/produtos', autorizar);
+
 
 const produtos = [
     { id: 1, descricao: "Arroz parboilizado 5Kg", preco: 25.00, marca: "Tio João", categoria: "Alimentos", estoque: 50 },
