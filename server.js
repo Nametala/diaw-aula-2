@@ -1,24 +1,17 @@
-// instalei express-session - middleware que gerencia sessoes de usuarios
 const express = require('express');
-const session = require('express-session'); // chamando o session 
+const cookieParser = require('cookie-parser');
 const path = require('path');
-const { login, logout, autorizar } = require('./auth/autenticador'); // forcando a autorizacao
+const { login, logout, autorizar } = require('./auth/autenticador');
+
 const app = express();
 
 app.use(express.json());
-
-// cria a sessao e o cookie
-app.use(session({
-    secret: 'ninguemVaiSaber', // secredo codificador
-    resave: false,
-    saveUninitialized: false,
-})); // isso aqui ja sai na base 64 , doido dms
-
-
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // login
 app.post('/login', login);
+app.post('/logout', logout);
 
 // buscando o home que agora esta protegido
 app.get('/home', autorizar, (req, res) => {

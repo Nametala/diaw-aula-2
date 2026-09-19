@@ -14,22 +14,25 @@ function login(req, res) {
     return res.status(401).json({ erro: 'Usuário ou senha inválidos' });
   }
 
-  // retorna verdadeiro se tiver sido encontrado
-  req.session.usuario = encontrado.usuario;
+  // cookie simples, ainda legivel pelo JavaScript do navegador (document.cookie)
+  res.cookie('usuario', String(encontrado.id), { httpOnly: false });
   res.json({ ok: true });
 }
 
 //logout
-function logout(req, res) {                    
-  req.session.destroy(() => {                  
-    res.json({ ok: true });                    
-  });                                          
-}  
+function logout(req, res) {
+  res.clearCookie('usuario');
+  res.json({ ok: true });
+}
 
 // middleware — roda ANTES das rotas protegidas
 function autorizar(req, res, next) {
-  if (req.session && req.session.usuario) {
-    return next(); // se houver sessao, o middleware deixa seguir
+  const usuarioId = req.cookies.usuario;
+  const encontrado = usuarios.find((u) => u.id === Number(usuarioId));
+
+  if (encontrado) {
+    req.usuario = encontrado;
+    return next(); // se o cookie apontar pra um usuario valido, deixa seguir
   }
 
   if (req.accepts('html')) {
