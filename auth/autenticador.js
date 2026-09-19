@@ -14,9 +14,14 @@ function login(req, res) {
     return res.status(401).json({ erro: 'Usuário ou senha inválidos' });
   }
 
-  // httpOnly: true - o cookie continua sendo enviado nas requisicoes, mas o
-  // JavaScript do navegador nao consegue mais ler via document.cookie
-  res.cookie('usuario', String(encontrado.id), { httpOnly: true });
+  // httpOnly: JS do navegador nao le o cookie
+  // sameSite strict: protege contra CSRF, o cookie so vai em requisicoes do proprio site
+  // secure: false pq o teste local e via http; em producao com https deve ser true
+  res.cookie('usuario', String(encontrado.id), {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: false,
+  });
   res.json({ ok: true });
 }
 
