@@ -1,4 +1,8 @@
+const jwt = require('jsonwebtoken');
 const usuarios = require('./usuarios'); // importa a o array
+
+// numa aplicacao real essa chave nao deveria ficar direto no codigo
+const JWT_SECRET = 'ninguemVaiSaber';
 
 // envia as informacoes do login
 function login(req, res) {
@@ -14,36 +18,49 @@ function login(req, res) {
     return res.status(401).json({ erro: 'Usuário ou senha inválidos' });
   }
 
+  const token = jwt.sign(
+    { id: encontrado.id, usuario: encontrado.usuario },
+    JWT_SECRET,
+    { expiresIn: '30m' }
+  );
+
   // httpOnly: JS do navegador nao le o cookie
   // sameSite strict: protege contra CSRF, o cookie so vai em requisicoes do proprio site
   // secure: false pq o teste local e via http; em producao com https deve ser true
-  res.cookie('usuario', String(encontrado.id), {
+  res.cookie('token', token, {
     httpOnly: true,
     sameSite: 'strict',
     secure: false,
+    maxAge: 30 * 60 * 1000,
   });
   res.json({ ok: true });
 }
 
 //logout
 function logout(req, res) {
-  res.clearCookie('usuario');
+  res.clearCookie('token');
   res.json({ ok: true });
 }
 
-// acha o usuario logado a partir do cookie, ou undefined
-function usuarioDoCookie(req) {
-  const usuarioId = req.cookies.usuario;
-  return usuarios.find((u) => u.id === Number(usuarioId));
+// valida o JWT do cookie e devolve o payload, ou undefined se invalido/expirado/ausente
+function usuarioDoToken(req) {
+  const token = req.cookies.token;
+  if (!token) return undefined;
+
+  try {
+    return jwt.verify(token, JWT_SECRET);
+  } catch (erro) {
+    return undefined;
+  }
 }
 
 // middleware — roda ANTES das rotas protegidas
 function autorizar(req, res, next) {
-  const encontrado = usuarioDoCookie(req);
+  const dados = usuarioDoToken(req);
 
-  if (encontrado) {
-    req.usuario = encontrado;
-    return next(); // se o cookie apontar pra um usuario valido, deixa seguir
+  if (dados) {
+    req.usuario = dados;
+    return next(); // token valido, deixa seguir
   }
 
   if (req.accepts('html')) {
@@ -54,12 +71,12 @@ function autorizar(req, res, next) {
 
 // GET /usuario — front pergunta ao servidor quem esta logado
 function usuario(req, res) {
-  const encontrado = usuarioDoCookie(req);
+  const dados = usuarioDoToken(req);
 
-  if (!encontrado) {
-    return res.status(401).json({ erro: 'Usuário não autenticado' });
+  if (!dados) {
+    return res.status(401).json({ erro: 'Token inválido ou expirado' });
   }
-  res.json({ id: encontrado.id, usuario: encontrado.usuario });
+  res.json({ id: dados.id, usuario: dados.usuario });
 }
 
 module.exports = { login, logout, autorizar, usuario };
