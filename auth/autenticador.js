@@ -14,8 +14,9 @@ function login(req, res) {
     return res.status(401).json({ erro: 'Usuário ou senha inválidos' });
   }
 
-  // cookie simples, ainda legivel pelo JavaScript do navegador (document.cookie)
-  res.cookie('usuario', String(encontrado.id), { httpOnly: false });
+  // httpOnly: true - o cookie continua sendo enviado nas requisicoes, mas o
+  // JavaScript do navegador nao consegue mais ler via document.cookie
+  res.cookie('usuario', String(encontrado.id), { httpOnly: true });
   res.json({ ok: true });
 }
 
