@@ -1,3 +1,18 @@
+// pergunta ao servidor quem esta logado; sem sessao valida, volta pro login
+async function carregarUsuario() {
+    const resposta = await fetch('/usuario');
+
+    if (resposta.status === 401) {
+        window.location.href = '/';
+        return;
+    }
+
+    const usuario = await resposta.json();
+    document.querySelector('#usuario-logado').textContent = `Olá, ${usuario.usuario}`;
+}
+
+carregarUsuario();
+
 const containerProdutos = document.querySelector('#container-produtos');
 
 function carregarProdutos() {

@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const { login, logout, autorizar } = require('./auth/autenticador');
+const { login, logout, autorizar, usuario } = require('./auth/autenticador');
 
 const app = express();
 
@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // login
 app.post('/login', login);
 app.post('/logout', logout);
+app.get('/usuario', usuario);
 
 // buscando o home que agora esta protegido
 app.get('/home', autorizar, (req, res) => {

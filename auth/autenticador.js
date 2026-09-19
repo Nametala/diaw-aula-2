@@ -25,10 +25,15 @@ function logout(req, res) {
   res.json({ ok: true });
 }
 
+// acha o usuario logado a partir do cookie, ou undefined
+function usuarioDoCookie(req) {
+  const usuarioId = req.cookies.usuario;
+  return usuarios.find((u) => u.id === Number(usuarioId));
+}
+
 // middleware — roda ANTES das rotas protegidas
 function autorizar(req, res, next) {
-  const usuarioId = req.cookies.usuario;
-  const encontrado = usuarios.find((u) => u.id === Number(usuarioId));
+  const encontrado = usuarioDoCookie(req);
 
   if (encontrado) {
     req.usuario = encontrado;
@@ -41,4 +46,14 @@ function autorizar(req, res, next) {
   res.status(401).json({ erro: 'Não autorizado' }); // se nao estiver autorizado, retorna nao autorizado
 }
 
-module.exports = { login, logout, autorizar };
+// GET /usuario — front pergunta ao servidor quem esta logado
+function usuario(req, res) {
+  const encontrado = usuarioDoCookie(req);
+
+  if (!encontrado) {
+    return res.status(401).json({ erro: 'Usuário não autenticado' });
+  }
+  res.json({ id: encontrado.id, usuario: encontrado.usuario });
+}
+
+module.exports = { login, logout, autorizar, usuario };
