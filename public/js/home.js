@@ -13,6 +13,12 @@ async function carregarUsuario() {
 
 carregarUsuario();
 
+// logout
+document.querySelector('#btn-logout').addEventListener('click', async () => {
+    await fetch('/logout', { method: 'POST' });
+    window.location.href = '/';
+});
+
 const containerProdutos = document.querySelector('#container-produtos');
 
 function carregarProdutos() {
